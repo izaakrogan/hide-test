@@ -1,16 +1,19 @@
 var Hapi = require('hapi')
 
 var server = new Hapi.Server()
+var email = require('./email.js')
 
 server.connection({
 	port: process.env.PORT || 1337
 })
 
 server.route({
-    method: 'GET',
+    method: 'POST',
     path: '/',
     handler: function (request, reply) {
-        reply('Hello, world!');
+        email(request.payload.address, request.payload.message, function (error, result) {
+        	reply('alright!')
+        })
     }
 });
 
