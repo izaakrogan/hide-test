@@ -7,15 +7,24 @@ server.connection({
 	port: process.env.PORT || 1337
 })
 
-server.route({
-    method: 'POST',
-    path: '/',
-    handler: function (request, reply) {
-        email(request.payload.address, request.payload.message, function (error, result) {
-        	reply('alright!')
-        })
-    }
-});
+server.route([
+	{
+	    method: 'POST',
+	    path: '/',
+	    handler: function (request, reply) {
+	        email(request.payload.address, request.payload.message, function (error, result) {
+	        	reply('alright!')
+	        })
+	    }
+	},
+	{
+	    method: 'GET',
+	    path: '/',
+	    handler: function (request, reply) {
+	    	reply('Hello World')
+	    }
+	}
+]);
 
 server.start(function () {
     console.log('Server running at:', server.info.uri);
